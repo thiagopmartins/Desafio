@@ -1,5 +1,5 @@
-﻿using Desafio.Application.Queries.Requests;
-using Desafio.Application.Queries.Responses;
+﻿using Desafio.Application.Requests;
+using Desafio.Application.Responses;
 using MediatR;
 
 namespace Desafio.Application.Handlers
@@ -10,7 +10,7 @@ namespace Desafio.Application.Handlers
         {
             ArraySumResponse result = new ArraySumResponse
             {
-                Sum = request.Numbers.Sum()
+                Sum = request.Numbers.Sum(x => (long)x)
             };
 
             return Task.FromResult(result);

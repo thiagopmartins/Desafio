@@ -1,4 +1,4 @@
-﻿namespace Desafio.Application.Queries.Requests
+﻿namespace Desafio.Application.Responses
 {
     public class GetFullNameNumberResponse
     {

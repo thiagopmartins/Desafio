@@ -1,7 +1,7 @@
-﻿using Desafio.Application.Queries.Responses;
+﻿using Desafio.Application.Responses;
 using MediatR;
 
-namespace Desafio.Application.Queries.Requests
+namespace Desafio.Application.Requests
 {
     public class ArraySumRequest : IRequest<ArraySumResponse>
     {

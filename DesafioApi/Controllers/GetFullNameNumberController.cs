@@ -1,4 +1,4 @@
-﻿using Desafio.Application.Queries.Requests;
+﻿using Desafio.Application.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

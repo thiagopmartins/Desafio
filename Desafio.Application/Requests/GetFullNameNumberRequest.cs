@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using Desafio.Application.Responses;
+using MediatR;
 
-namespace Desafio.Application.Queries.Requests
+namespace Desafio.Application.Requests
 {
     public class GetFullNameNumberRequest : IRequest<GetFullNameNumberResponse>
     {

@@ -1,9 +1,10 @@
-﻿using Desafio.Application.Queries.Requests;
+﻿using Desafio.Application.Requests;
+using Desafio.Application.Responses;
 using MediatR;
 
 namespace Desafio.Application.Handlers
 {
-    public class GetFullNameNumberQueryHandler : IRequestHandler<GetFullNameNumberRequest, GetFullNameNumberResponse>
+    public class GetFullNameNumberHandler : IRequestHandler<GetFullNameNumberRequest, GetFullNameNumberResponse>
     {
         private readonly string[] unidades = { "", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove" };
         private readonly string[] others = { "dez", "onze", "doze", "treze", "catorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove" };
