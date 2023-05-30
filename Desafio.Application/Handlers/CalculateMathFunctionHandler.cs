@@ -68,7 +68,7 @@ namespace Desafio.Application.Handlers
                         break;
                     case "/":
                         if (num2 == 0)
-                            throw new ArgumentException("Denominador não pode ser '0' " + elements[index]);
+                            throw new ArgumentException("Denominador não pode ser '0'");
                         result = num1 / num2;
                         break;
                     default:
