@@ -1,6 +1,8 @@
 ﻿using Desafio.Application.Requests;
 using Desafio.Application.Responses;
 using MediatR;
+using System;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
 namespace Desafio.Application.Handlers
@@ -18,25 +20,37 @@ namespace Desafio.Application.Handlers
         }
 
         #region Métodos auxiliares
-        private static double GetExpressionValue(string expressao)
+        private static double GetExpressionValue(string expression)
         {
-            while (expressao.Contains("*") || expressao.Contains("/"))
+            bool expressionValid = ValidateExpression(expression);
+
+            if (!expressionValid)
+                throw new ArgumentException("Expressão matemática inválida: " + expression);
+
+            while (expression.Contains("*") || expression.Contains("/"))
             {
-                expressao = CalculatePriorityExpression(expressao);
+                expression = CalculatePriorityExpression(expression);
             }
             
-            double result = CalculateExpression(expressao);
+            double result = CalculateExpression(expression);
 
             return result;
         }
 
+        private static bool ValidateExpression(string expression)
+        {
+            string pattern = @"^[^\d\s].*|.*[\+\-\*\/]$";
+
+            bool invalid = Regex.IsMatch(expression, pattern);
+
+            return !invalid;
+        }
+
         private static string CalculatePriorityExpression(string expression)
         {
-            string[] partes = Split(expression).ToArray();
+            string[] elements = Split(expression).ToArray();            
 
-            double resultado = double.Parse(partes[0]);
-
-            int index = partes.Select((num, index) => new { num, index })
+            int index = elements.Select((num, index) => new { num, index })
                               .Where(x => x.num.Equals("*") || x.num.Equals("/"))
                               .Select(x => x.index).First();
 
@@ -44,29 +58,29 @@ namespace Desafio.Application.Handlers
             {
                 double result = 0;
 
-                var num1 = double.Parse(partes[index - 1]);
-                var num2 = double.Parse(partes[index + 1]);
+                var num1 = double.Parse(elements[index - 1]);
+                var num2 = double.Parse(elements[index + 1]);
 
-                switch (partes[index])
+                switch (elements[index])
                 {
                     case "*":
                         result = num1 * num2;
                         break;
                     case "/":
                         if (num2 == 0)
-                            throw new ArgumentException("Denominador não pode ser '0' " + partes[index]);
+                            throw new ArgumentException("Denominador não pode ser '0' " + elements[index]);
                         result = num1 / num2;
                         break;
                     default:
-                        throw new ArgumentException("Operador inválido: " + partes[index]);
+                        throw new ArgumentException("Operador inválido: " + elements[index]);
                 }
 
-                partes[index - 1] = null;
-                partes[index + 1] = null;
-                partes[index] = result.ToString();
+                elements[index - 1] = null;
+                elements[index + 1] = null;
+                elements[index] = result.ToString();
             }
 
-            return string.Join("", partes);
+            return string.Join("", elements);
         }
 
         private static IEnumerable<string> Split(string expression)
@@ -85,10 +99,10 @@ namespace Desafio.Application.Handlers
 
             for (int i = 1; i < elements.Length; i += 2)
             {
-                string operador = elements[i];
+                string operatorr = elements[i];
                 double numero = double.Parse(elements[i + 1]);
 
-                switch (operador)
+                switch (operatorr)
                 {
                     case "+":
                         result += numero;
@@ -97,7 +111,7 @@ namespace Desafio.Application.Handlers
                         result -= numero;
                         break;
                     default:
-                        throw new ArgumentException("Operador inválido: " + operador);
+                        throw new ArgumentException("Operador inválido: " + operatorr);
                 }
             }
 
