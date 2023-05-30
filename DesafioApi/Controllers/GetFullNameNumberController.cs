@@ -6,7 +6,7 @@ namespace Desafio.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GetFullNameNumberController : BaseApiController
+    public class GetFullNameNumberController : ControllerBase
     {
         private readonly IMediator _mediator;
 
